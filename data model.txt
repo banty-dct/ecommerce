@@ -1,0 +1,74 @@
+categories 
+    name - String - required - unique
+
+    ROLE Management - 
+        admin - CRUD 
+        moderator - CRU 
+        customer - R
+
+products 
+    name - String - required 
+    price - Number - > 1 
+    description - String 
+    category - ObjectID 
+    availabeDateTime - Date 
+    codEligible - Boolean - true 
+    stock - Number >= 0 
+    image - String - ( explore called as multer )
+
+    ROLE Management - 
+        admin - CRUD 
+        moderator - CRU 
+        customer - R
+
+users 
+    username - String - required - unique 
+    email - String - required - unique - format of email 
+    password - String - required - 8 - 128 chars 
+    roles - [String] -> 'admin', 'moderator', 'customer' ( all the users are be default customer) 
+    
+    // apis - GET / POST / PUT / DELETE localhost:3000/cartLineItems
+    cartLineItems - [{
+        product: ObjectID,
+        quantity: Number
+    }]
+
+    // apis - GET / POST / PUT / DELETE localhost:3000/users/addresses  - authenticate
+    addresses - [{
+        city: String, 
+        postal: String,
+        landmark: String 
+    }]
+
+    wishlists - [{ 
+            product: ObjectID
+    }]
+
+    // allowing a user to login with either username or email 
+
+     ROLE Management - 
+        admin - CRUD 
+        moderator - CR 
+        user - R (own) 
+               CRUD - cartLineItems
+               CRUD - wishlists
+               CRUD - addresses
+
+orders 
+    orderNumber - String 
+    orderDate - Date 
+    user - ObjectID 
+    address - ObjectID 
+    total - Number 
+    status - String 
+    orderLineItems - [{
+        product: ObjectId 
+        quantity: Number, 
+        price: Number
+    }]
+
+
+    ROLE Management - 
+        admin - CRUD 
+        moderator - RU 
+        User - R (own) 
