@@ -20,7 +20,7 @@ router.post("/register",function(req,res){
         })
 })
 
-//localhost:3000/api/users/login
+//localhost:3005/api/api/users/login
 router.post("/login",function(req,res){
     const body = _.pick(req.body,["username_email","password"])
     User.findByCredentials(body.username_email,body.password)
@@ -35,12 +35,24 @@ router.post("/login",function(req,res){
         })
 })
 
-//localhost:3000/logout
+//localhost:3005/api/users/logout
 router.delete("/logout",userAuth,function(req,res){
     const { user } = req
     User.findByIdAndUpdate(user._id,{ tokens: [] })
         .then(function(){
             res.send("successfully logged out")
+        })
+        .catch(function(err){
+            res.send(err)
+        })
+})
+
+//localhost:3005/api/users/token/:id
+router.get("/token/:id",function(req,res){
+    const token = req.params.id
+    User.findOne({"tokens.token": token})
+        .then(function(user){
+            res.send({id: user._id, role: user.role, token})
         })
         .catch(function(err){
             res.send(err)

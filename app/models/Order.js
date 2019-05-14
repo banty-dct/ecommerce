@@ -31,7 +31,7 @@ orderSchema.pre('save', function(next){
     order.total = 0
     order.orderItems = []
 
-    User.findOne({ _id: order.user}).populate('cartItems.product')
+    User.findOne({_id: order.user}).populate('cartItems.product')
         .then(function(user){
             if(user.cartItems.length > 0){
                 user.cartItems.forEach(function(item){

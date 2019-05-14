@@ -1,0 +1,76 @@
+.spinner-border{
+    border-color: #cecece;
+    border-right-color: transparent;
+}
+
+/*start login + register*/
+.loginBlock {
+    position: relative;
+    min-height: 100vh;
+}
+.loginBlock > div{
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 0 20px 0 #dddddd;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #363349;
+    padding: 70px;
+    border-radius: 5px;
+}
+.loginBlock .right{
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+    padding: 0 30px 0 0;
+}
+.loginBlock h2{
+    font-size: 30px;
+    margin-bottom: 25px;
+    text-transform: capitalize;
+    color: white;
+    text-align: center;
+}
+.loginBlock input{
+    margin-bottom: 10px;
+    border-radius: 0;
+    box-shadow: none !important;
+    font-size: 14px;
+    padding: 10px 0;
+    height: auto;
+    border: 0 !important;
+    border-bottom: 1px solid white !important;
+    background: transparent !important;
+    color: white !important;
+}
+.loginBlock input::-webkit-input-placeholder {
+    color: white;
+}
+.loginBlock p{
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.loginBlock button{
+    font-size: 14px;
+    border-radius: 30px;
+    box-shadow: none !important;
+    background: white;
+    margin: 20px 0 0 0;
+    padding: 10px 30px;
+}
+.loginFooter{
+    text-align: center;
+}
+.loginFooter > a{
+    display: block;
+    margin: 20px 0 0 0;
+    color: white !important;
+    text-decoration: none;
+    font-size: 14px;
+}
+.formStatus{
+    text-transform: capitalize;
+}
+/*end login + register*/
