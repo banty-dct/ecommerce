@@ -37,7 +37,7 @@ const upload = multer({
     fileFilter
 })
 
-//localhost:3000/admin/products?category=:id
+//localhost:3005/api/admin/products?category=:id
 router.post("/",userAuth,modAccess,upload.single("productImg"),function(req,res){
     const body = _.pick(req.body,["name","price","description","availabeDateTime","stock"])
     body.category = req.query.category
@@ -45,20 +45,14 @@ router.post("/",userAuth,modAccess,upload.single("productImg"),function(req,res)
     const product = new Product(body)
     product.save()
         .then(function(product){
-            res.send({
-                product,
-                notice: "Successfully created product"
-            })
+            res.send(product)
         })
         .catch(function(err){
-            res.send({
-                err,
-                notice: "Failed to create"
-            })
+            res.send(err)
         })
 })
 
-//localhost:3000/admin/products/:id
+//localhost:3005/api/admin/products/:id
 router.put("/:id",userAuth,modAccess,upload.single("productImg"),function(req,res){
     const id = req.params.id
     const body = _.pick(req.body,["name","price","category","description","availabeDateTime","stock"])
@@ -67,29 +61,20 @@ router.put("/:id",userAuth,modAccess,upload.single("productImg"),function(req,re
     }
     Product.findByIdAndUpdate(id,body,{new: true, runValidators: true})
         .then(function(product){
-            res.send({
-                product,
-                notice: "Successfully updated product"
-            })
+            res.send(product)
         })
         .catch(function(err){
-            res.send({
-                err,
-                notice: "Failed to update"
-            })
+            res.send(err)
         })
 })
 
-//localhost:3000/admin/products/:id
+//localhost:3005/api/admin/products/:id
 router.delete("/:id",userAuth,adminAccess,function(req,res){
     const id = req.params.id
     Product.findByIdAndDelete(id)
         .then(function(product){
             if(product){
-                res.send({
-                    product,
-                    notice: "Successfully deleted product"
-                })
+                res.send(product)
             }else{
                 res.status("404").send({
                     notice: "page not found"
@@ -97,10 +82,7 @@ router.delete("/:id",userAuth,adminAccess,function(req,res){
             }
         })
         .catch(function(err){
-            res.send({
-                err,
-                notice: "Failed to delete"
-            })
+            res.send(err)
         })
 })
 

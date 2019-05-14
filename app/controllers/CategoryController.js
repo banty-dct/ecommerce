@@ -11,10 +11,7 @@ router.get("/",function(req,res){
             res.send(categories)
         })
         .catch(function(err){
-            res.send({
-                err,
-                notice: "Failed to get categories"
-            })
+            res.send(err)
         })
 })
 

@@ -7,12 +7,6 @@ const { adminProductRouter } = require('../app/controllers/admin/ProductControll
 const { adminUserRouter } = require('../app/controllers/admin/UserController')
 const { adminOrderRouter } = require('../app/controllers/admin/OrderController')
 
-//routes - admin
-router.use("/admin/categories", adminCategoryRouter)
-router.use("/admin/products", adminProductRouter)
-router.use("/admin/users", adminUserRouter)
-router.use("/admin/orders", adminOrderRouter)
-
 //controllers - users
 const { userRouter } = require('../app/controllers/UserController')
 const { addressRouter } = require('../app/controllers/AddressController')
@@ -22,8 +16,14 @@ const { orderRouter } = require('../app/controllers/OrderController')
 const { productRouter } = require('../app/controllers/ProductController')
 const { wishlistRouter } = require('../app/controllers/WishlistController')
 
+//routes - admin
+router.use("/admin/categories", adminCategoryRouter)
+router.use("/admin/products", adminProductRouter)
+router.use("/admin/users", adminUserRouter)
+router.use("/admin/orders", adminOrderRouter)
+
 //routes - users
-router.use("/", userRouter)
+router.use("/users", userRouter)
 router.use("/address", addressRouter)
 router.use("/cart", cartRouter)
 router.use("/categories", categoryRouter)

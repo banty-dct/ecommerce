@@ -7,7 +7,7 @@ const { User } = require("../../models/User")
 const { userAuth } = require("../../middlewares/auth")
 const { modAccess, adminAccess } = require("../../middlewares/access")
 
-//localhost:3000/admin/users
+//localhost:3005/api/admin/users
 router.get("/",userAuth,modAccess,function(req,res){
     User.find()
         .then(function(users){
@@ -18,7 +18,7 @@ router.get("/",userAuth,modAccess,function(req,res){
         })
 })
 
-//localhost:3000/admin/users/:id
+//localhost:3005/api/admin/users/:id
 router.get("/:id",userAuth,modAccess,function(req,res){
     const id = req.params.id
     User.findOne({_id: id})
@@ -30,7 +30,7 @@ router.get("/:id",userAuth,modAccess,function(req,res){
         })
 })
 
-//localhost:3000/admin/users/:id
+//localhost:3005/api/admin/users/:id
 router.put("/:id",userAuth,adminAccess,function(req,res){
     const id = req.params.id
     const body = _.pick(req.body,["username","email","roles","allowAccess","cartItems","addresses","wishlists"])
@@ -43,16 +43,13 @@ router.put("/:id",userAuth,adminAccess,function(req,res){
         })
 })
 
-//localhost:3000/admin/users/:id
+//localhost:3005/api/admin/users/:id
 router.delete("/:id",userAuth,adminAccess,function(req,res){
     const id = req.params.id
     User.findByIdAndDelete(id)
         .then(function(user){
             if(user){
-                res.send({
-                    user,
-                    notice: "Successfully deleted"
-                })
+                res.send(user)
             }else{
                 res.status("404").send({
                     notice: "page not found"

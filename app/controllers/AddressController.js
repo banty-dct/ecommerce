@@ -6,7 +6,7 @@ const { User } = require("../models/User")
 
 const { userAuth } = require("../middlewares/auth")
 
-//localhost:3000/address
+//localhost:3005/api/address
 router.get("/",userAuth,function(req,res){
     const { user } = req
     if(user){
@@ -16,7 +16,7 @@ router.get("/",userAuth,function(req,res){
     }
 })
 
-//localhost:3000/address
+//localhost:3005/api/address
 router.post("/",userAuth,function(req,res){
     const { user } = req
     const body = _.pick(req.body,["address","city","pincode"])
@@ -29,7 +29,7 @@ router.post("/",userAuth,function(req,res){
         })
 })
 
-//localhost:3000/address/:id
+//localhost:3005/api/address/:id
 router.delete("/:id",userAuth,function(req,res){
     const { user } = req
     const id = req.params.id
@@ -45,7 +45,7 @@ router.delete("/:id",userAuth,function(req,res){
         })
 })
 
-//localhost:3000/address/:id
+//localhost:3005/api/address/:id
 router.put("/:id",userAuth,function(req,res){
     const { user } = req
     const id = req.params.id

@@ -1,34 +1,44 @@
 const mongoose = require("mongoose")
+const uniqueValidator = require('mongoose-unique-validator')
 const validator = require("validator")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 
 const Schema = mongoose.Schema
 const userSchema = new Schema({
+    fullname: {
+        type: String,
+        minlength: [4, 'fullname is short'],
+        required: [true, 'fullname is required']
+    },
     username: {
         type: String,
-        minlength: 4,
         unique: true,
-        required: true
+        minlength: [4, 'username is short'],
+        required: [true, 'username is required']
     },
     email: {
         type: String,
         unique: true,
-        required: true,
+        required: [true, 'email is required'],
         validate: {
             validator: function(value){
                 return validator.isEmail(value)
             },
             message: function(){
-                return "Email is invalid"
+                return "email is invalid"
             }
         }
     },
     password: {
         type: String,
-        minlength: 8,
-        maxlength: 128,
-        required: true
+        minlength: [6, 'password is too short'],
+        maxlength: [128, 'password is too long'],
+        required: [true, 'password is required']
+    },
+    passUpdate: {
+        type: Boolean,
+        default: false
     },
     tokens: [{
         token: {
@@ -39,8 +49,8 @@ const userSchema = new Schema({
             default: Date.now
         }
     }],
-    roles: {
-        type: [String],
+    role: {
+        type: String,
         default: 'customer'
     },
     allowAccess: {
@@ -78,24 +88,26 @@ const userSchema = new Schema({
     }]
 })
 
-//before saving
+userSchema.plugin(uniqueValidator, { message: '{PATH} already exists' })
+
 userSchema.pre("save",function(next){
     const user = this
-    if(user.isNew){
-        function encryptPassword(){
+    if(user.passUpdate){
+        encryptPassword = () => {
             return bcrypt.genSalt(10)
                 .then(function(salt){
                     return bcrypt.hash(user.password,salt)
                         .then(function(encPass){
                             user.password = encPass
+                            user.passUpdate = false
                         })
                 })
         }
-        function setRole(){
+        setRole = () => {
             return User.countDocuments()
                 .then(function(count){
                     if(count == 0){
-                        user.roles = ["admin"]
+                        user.role = "admin"
                     }
                 })
         }
@@ -108,22 +120,21 @@ userSchema.pre("save",function(next){
             })
     }else{
         next()
-    }
+    }    
 })
 
-//staic methods
 userSchema.statics.findByCredentials = function(username_email,password) {
     const User = this
     return User.findOne({$or:[{email: username_email},{username: username_email}]})
             .then(function(user){
                 if(!user){
-                    return Promise.reject("invalid email/username")
+                    return Promise.reject("invalid credentials")
                 }
                 else{
                     return bcrypt.compare(password,user.password)
                         .then(function(result){
                             if(!result){
-                                return Promise.reject("invalid password")
+                                return Promise.reject("invalid credentials")
                             }else{                                
                                 if(user.allowAccess){
                                     return Promise.resolve(user)
@@ -153,11 +164,10 @@ userSchema.statics.findByToken = function(token) {
     })
 }
 
-//instance methods
 userSchema.methods.generateToken = function() {
     const user = this
     const tokenData = {
-        _id: user.id,
+        _id: user._id,
         username: user.username,
         createdAt: Number(new Date())
     }
@@ -167,7 +177,18 @@ userSchema.methods.generateToken = function() {
     })
     return user.save()
         .then(function(user){
-            return Promise.resolve(token)
+            return Promise.resolve({role: user.role, token, id: user._id})
+        })
+        .catch(function(err){
+            return Promise.reject(err)
+        })
+}
+
+userSchema.methods.updatePassword = function() {
+    const user = this
+    return user.save()
+        .then(function(user){
+            return Promise.resolve(user)
         })
         .catch(function(err){
             return Promise.reject(err)
@@ -178,4 +199,3 @@ const User = mongoose.model("User",userSchema)
 module.exports = {
     User
 }
-

@@ -6,7 +6,7 @@ const { User } = require("../models/User")
 
 const { userAuth } = require("../middlewares/auth")
 
-//localhost:3000/cart
+//localhost:3005/api/cart
 router.get("/",userAuth,function(req,res){
     const { user } = req
     if(user){
@@ -16,7 +16,7 @@ router.get("/",userAuth,function(req,res){
     }
 })
 
-//localhost:3000/cart
+//localhost:3005/api/cart
 router.post("/",userAuth,function(req,res){
     const { user } = req
     const body = _.pick(req.body,["product","quantity"])
@@ -29,7 +29,7 @@ router.post("/",userAuth,function(req,res){
         })
 })
 
-//localhost:3000/cart/:id
+//localhost:3005/api/cart/:id
 router.delete("/:id",userAuth,function(req,res){
     const { user } = req
     const id = req.params.id
@@ -42,7 +42,7 @@ router.delete("/:id",userAuth,function(req,res){
         })
 })
 
-//localhost:3000/cart/:id
+//localhost:3005/api/cart/:id
 router.put("/:id",userAuth,function(req,res){
     const { user } = req
     const id = req.params.id
@@ -51,10 +51,7 @@ router.put("/:id",userAuth,function(req,res){
             "cartItems.$.quantity" : body.quantity
         }}, {new: true, runValidators: true})
         .then(function(user){
-            res.send({
-                wishlist: user.cartItems, 
-                notice: "Updated"
-            })
+            res.send(user.cartItems)
         })
         .catch(function(err){
             res.send(err)

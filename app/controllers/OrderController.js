@@ -7,7 +7,7 @@ const { Order } = require('../models/Order')
 
 const { userAuth } = require("../middlewares/auth")
 
-//localhost:3000/orders
+//localhost:3005/api/orders
 router.post("/",userAuth,function(req,res){
     const { user } = req
     const order = new Order() 
@@ -22,10 +22,7 @@ router.post("/",userAuth,function(req,res){
                         res.send(order)
                     })
                     .catch(function(err){
-                        res.send({
-                            err,
-                            notice: "failed to clear cart items"
-                        })
+                        res.send(err)
                     })
             }else{
                 res.send({})

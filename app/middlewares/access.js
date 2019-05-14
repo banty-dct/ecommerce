@@ -1,5 +1,5 @@
 const adminAccess = function(req, res, next) {    
-    if(req.user.roles.includes("admin")){
+    if(req.user.role === "admin"){
         next()
     }else{
         res.status("403").send({
@@ -9,7 +9,7 @@ const adminAccess = function(req, res, next) {
 }
 
 const modAccess = function(req, res, next) {    
-    if(req.user.roles.includes("moderator") || req.user.roles.includes("admin")){
+    if(req.user.role === "moderator" || req.user.role === "admin"){
         next()
     }else{
         res.status("403").send({
@@ -19,6 +19,5 @@ const modAccess = function(req, res, next) {
 }
 
 module.exports = {
-    adminAccess,
-    modAccess
+    adminAccess, modAccess
 }
