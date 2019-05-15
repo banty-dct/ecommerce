@@ -6,7 +6,7 @@ const { Category } = require("../models/Category")
 
 //localhost:3005/api/categories
 router.get("/",function(req,res){
-    Category.find()
+    Category.find().sort({ createdAt: -1 })
         .then(function(categories){
             res.send(categories)
         })

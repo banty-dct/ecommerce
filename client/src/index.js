@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'jquery'
 import 'popper.js'
 import 'bootstrap/dist/js/bootstrap.bundle.min'
+import "react-datepicker/dist/react-datepicker.css"
 
 import './css/style.css'
 import App from './App'

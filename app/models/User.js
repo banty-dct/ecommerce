@@ -85,7 +85,11 @@ const userSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Product'
         }
-    }]
+    }],
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
 })
 
 userSchema.plugin(uniqueValidator, { message: '{PATH} already exists' })

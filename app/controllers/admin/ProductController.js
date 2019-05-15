@@ -12,7 +12,7 @@ const multer  = require('multer')
 const storage = multer.diskStorage({
      //dest folder
     destination: function(req,file,cb){
-        cb(null, "uploads/")
+        cb(null, "uploads")
     },
     //rename file
     filename: function(req,file,cb){
@@ -37,11 +37,15 @@ const upload = multer({
     fileFilter
 })
 
-//localhost:3005/api/admin/products?category=:id
-router.post("/",userAuth,modAccess,upload.single("productImg"),function(req,res){
-    const body = _.pick(req.body,["name","price","description","availabeDateTime","stock"])
-    body.category = req.query.category
-    body.image = req.file.filename
+//localhost:3005/api/admin/products
+router.post("/",userAuth,modAccess,upload.single("image"),function(req,res){
+    const body = _.pick(req.body,["name","price","category","description","availabeDateTime","stock","codEligible","image"])
+    body.category === 'null' && delete body.category
+    body.codEligible === 'null' && delete body.codEligible
+    if(req.file){
+        body.image = req.file.filename
+    }
+    console.log(req.file)
     const product = new Product(body)
     product.save()
         .then(function(product){
@@ -53,9 +57,9 @@ router.post("/",userAuth,modAccess,upload.single("productImg"),function(req,res)
 })
 
 //localhost:3005/api/admin/products/:id
-router.put("/:id",userAuth,modAccess,upload.single("productImg"),function(req,res){
+router.put("/:id",userAuth,modAccess,upload.single("image"),function(req,res){
     const id = req.params.id
-    const body = _.pick(req.body,["name","price","category","description","availabeDateTime","stock"])
+    const body = _.pick(req.body,["name","price","category","description","availabeDateTime","stock","codEligible","image"])
     if(req.file){
         body.image = req.file.filename
     }
@@ -74,7 +78,7 @@ router.delete("/:id",userAuth,adminAccess,function(req,res){
     Product.findByIdAndDelete(id)
         .then(function(product){
             if(product){
-                res.send(product)
+                res.send({product})
             }else{
                 res.status("404").send({
                     notice: "page not found"

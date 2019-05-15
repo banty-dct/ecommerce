@@ -2,7 +2,7 @@
 
 }
 .wrapper{
-    padding: 60px 0 0 0;
+    padding: 60px 0;
 }
 .spinner-border{
     border-color: #363349;
@@ -280,4 +280,58 @@ form li.editCol span {
     margin: -15px 0 0;
     padding: 11px;
 }
-/*end expense*/
+/*end admin*/
+
+/*start product*/
+.productView table td{
+    text-align: left !important;
+}
+.productView img{
+    width: 100%;
+}
+/*end product*/
+
+/*React Select*/
+.css-1pcexqc-container{
+    margin-bottom: 10px;
+    font-size: 14px !important;
+}
+.css-1szy77t-control{
+    border-color: #ddd !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    min-height: 45px !important;
+}
+.css-bg1rzq-control{
+    border-radius: 0 !important;
+    min-height: 45px !important;
+}
+.css-1hwfws3{
+    padding: 0 15px !important;
+}
+
+/*React Date Picker*/
+.react-datepicker-wrapper{
+    width: 100%;
+}
+.react-datepicker__input-container{
+    width: 100%;
+}
+.react-datepicker__input-container input{
+    width: 100%;
+    border-radius: 0;
+    font-size: 14px;
+    padding: 10px 15px;
+    height: auto;
+    box-shadow: none;
+    border: 1px solid #dee2e6;
+    margin-bottom: 15px;
+    outline: 0 !important;
+}
+
+/*React Image Upload*/
+.fileContainer .chooseFileButton {
+    padding: 8px 20px !important;
+    border-radius: 3px !important;
+    font-weight: 400 !important;
+}

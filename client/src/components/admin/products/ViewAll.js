@@ -16,12 +16,16 @@ class ViewAll extends React.Component{
             deleteLoading: {
                 id: '',
                 status: false
+            },
+            formMsg: {
+                css: '',
+                msg: ''
             }
         }
     }
 
     componentDidMount(){
-        document.title = "View All Products"
+        document.title = "All Products"
         axios.get("/api/products")
             .then(res => {
                 this.setState(() => ({
@@ -29,6 +33,7 @@ class ViewAll extends React.Component{
                     products: res.data,
                     filteredProducts: res.data
                 }))
+                console.log(res.data)
             })
     }
 
@@ -53,27 +58,27 @@ class ViewAll extends React.Component{
                     })
                     .then(res => {
                         console.log(res.data)
-                        // if(res.data.expense){
-                        //     this.setState((prevState) => ({
-                        //         deleteLoading: {
-                        //             id: '',
-                        //             status: false
-                        //         },
-                        //         expenses: prevState.expenses.filter(expense => expense._id !== id),
-                        //         filteredExpenses: prevState.filteredExpenses.filter(expense => expense._id !== id)
-                        //     }))
-                        // }else{
-                        //     this.setState(() => ({
-                        //         deleteLoading: {
-                        //             id: '',
-                        //             status: false
-                        //         },
-                        //         formMsg: {
-                        //             css: 'danger',
-                        //             msg: 'Something Went Wrong !'
-                        //         }
-                        //     }))
-                        // }
+                        if(res.data.product){
+                            this.setState((prevState) => ({
+                                deleteLoading: {
+                                    id: '',
+                                    status: false
+                                },
+                                products: prevState.products.filter(product => product._id !== id),
+                                filteredProducts: prevState.filteredProducts.filter(product => product._id !== id)
+                            }))
+                        }else{
+                            this.setState(() => ({
+                                deleteLoading: {
+                                    id: '',
+                                    status: false
+                                },
+                                formMsg: {
+                                    css: 'danger',
+                                    msg: 'Something Went Wrong !'
+                                }
+                            }))
+                        }
                     })
             }
         }else{
@@ -102,7 +107,7 @@ class ViewAll extends React.Component{
                     <div className="container">
                         <div className="row">
                             <div className="col-md-6">
-                                
+                                { this.state.formMsg.msg && <p className={`text-${this.state.formMsg.css}`}>{ this.state.formMsg.msg }</p> }
                             </div>
                             <div className="col-md-6">
                                 <form>
@@ -123,7 +128,7 @@ class ViewAll extends React.Component{
                                         <th>Name</th>
                                         <th>Price</th>
                                         <th>Category</th>
-                                        <th>Available Time</th>
+                                        <th>Available Date</th>
                                         <th>Stock</th>
                                         <th>Action</th>
                                     </tr>
@@ -136,7 +141,7 @@ class ViewAll extends React.Component{
                                                 <td>{ index + 1 }</td>
                                                 <td>{ product.name }</td>
                                                 <td>{ product.price }</td>
-                                                <td>{ product.category }</td>
+                                                <td>{ product.category.name }</td>
                                                 <td>{ product.availabeDateTime }</td>
                                                 <td>{ product.stock }</td>
                                                 <td>
