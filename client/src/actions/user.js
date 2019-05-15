@@ -23,12 +23,6 @@ export const startSaveUser = (token) => {
     }
 }
 
-export const noUser = () => {
-    return {
-        type: 'NO_USER'
-    }
-}
-
 export const removeUser = () => {
     return {
         type: 'REMOVE_USER'

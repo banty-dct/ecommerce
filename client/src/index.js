@@ -12,14 +12,14 @@ import App from './App'
 import * as serviceWorker from './serviceWorker'
 
 import configureStore from './store/store'
-import { startSaveUser, noUser } from "./actions/user"
+import { startSaveUser, removeUser } from "./actions/user"
 
 const store = configureStore()
 store.subscribe(() => {
     console.log(store.getState())
 })
 
-localStorage.getItem('token') ? store.dispatch(startSaveUser(JSON.parse(localStorage.getItem('token')))) : store.dispatch(noUser())
+localStorage.getItem('token') ? store.dispatch(startSaveUser(JSON.parse(localStorage.getItem('token')))) : store.dispatch(removeUser())
 
 const app = (
     <Provider store={store}>
