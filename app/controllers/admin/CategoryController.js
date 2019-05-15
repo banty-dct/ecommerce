@@ -39,7 +39,7 @@ router.delete("/:id",userAuth,adminAccess,function(req,res){
     Category.findByIdAndDelete(id)
         .then(function(category){
             if(category){
-                res.send(category)
+                res.send({category})
             }else{
                 res.status("404").send({
                     notice: "page not found"
