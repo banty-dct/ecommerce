@@ -40,7 +40,7 @@ router.delete("/logout",userAuth,function(req,res){
     const { user } = req
     User.findByIdAndUpdate(user._id,{ tokens: [] })
         .then(function(){
-            res.send("successfully logged out")
+            res.send({success: "successfully logged out"})
         })
         .catch(function(err){
             res.send(err)

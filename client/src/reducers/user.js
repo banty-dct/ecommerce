@@ -6,9 +6,7 @@ const userReducer = (state = initialState, action) => {
         case 'SAVE_USER': 
             return {...state, ...{auth: action.payload}}
         case 'REMOVE_USER': 
-            return {}
-        case 'NO_USER':
-            return {...state, ...{auth: 'false'}}
+            return {auth: 'false'}
         default: 
             return state
     }

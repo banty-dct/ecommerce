@@ -1,24 +1,81 @@
+.app{
+
+}
+.wrapper{
+    padding: 60px 0 0 0;
+}
 .spinner-border{
-    border-color: #cecece;
+    border-color: #363349;
     border-right-color: transparent;
 }
+
+/*Start Header*/
+.header{
+    background: #ffffff;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    box-shadow: 0 0 15px -9px #6c6c6c;
+    z-index: 999;
+}
+.navbar{
+    padding: 10px 0;
+}
+.navbar-brand{
+    padding: 7px 0;
+    margin: 0;
+    height: 40px;
+    color: black !important;
+    font-weight: bold;
+}
+.navbar-brand img{
+    height: 100%;
+    margin: -5px 0 0 0;
+}
+.nav-link{
+    font-size: 15px;
+    color: #000000;
+}
+.nav-link:hover{
+    color: #000000;
+}
+.nav-link.logout{
+    background: #F44336;
+    color: white;
+    padding: 7px 15px !important;
+    border-radius: 4px;
+    margin: 0 0 0 5px;
+}
+button.navbar-toggler {
+    border: 1px solid #000000;
+    height: 35px;
+    width: 35px;
+    outline: 0;
+    padding: 6px 8px;
+    border-radius: 5px;
+}
+button.navbar-toggler span{
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #000000;
+    margin: 4px 0;
+}
+/*End Header*/
 
 /*start login + register*/
 .loginBlock {
     position: relative;
-    min-height: 100vh;
 }
 .loginBlock > div{
-    width: 100%;
+    width: calc(100% - 30px);
     max-width: 450px;
     box-shadow: 0 0 20px 0 #dddddd;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     background: #363349;
     padding: 70px;
     border-radius: 5px;
+    margin: 15px auto;
 }
 .loginBlock .right{
     position: relative;
@@ -74,3 +131,153 @@
     text-transform: capitalize;
 }
 /*end login + register*/
+
+/*start admin*/
+.admin h1{ 
+    font-size: 20px;
+    margin: 5px 0;
+    color: white;
+}
+.admin a.btn,
+.admin button.btn{
+    font-size: 14px;
+    border: 0;
+    border-radius: 3px;
+    padding: 7px 15px;
+    box-shadow: none;
+}
+.admin table{
+    margin: 15px 0 0;
+    font-size: 14px;
+    text-transform: capitalize;
+}
+.admin table .noCap{
+    text-transform: lowercase;
+}
+.admin table a,
+.admin table button{
+    border: 0;
+    background: transparent;
+    outline: 0;
+    font-size: 17px;
+    padding: 0 7px;
+    color: black !important;
+    display: inline-block;
+}
+.admin table th{
+    white-space: nowrap;
+}
+.admin table th:last-child,
+.admin table td:last-child{
+    width: 130px;
+    text-align: center;
+}
+.admin table th:first-child{
+    width: 80px;
+}
+.admin input.search{
+    max-width: 350px;
+    display: block;
+    margin: 0 0 0 auto;
+    border-radius: 0;
+    font-size: 14px;
+    padding: 7px 15px;
+    height: auto;
+    box-shadow: none;
+    border: 1px solid #dee2e6;
+}
+.admin ul{
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    width: 100%;
+}
+.admin li{
+    display: inline-block;
+}
+.admin li button{
+    border: 1px solid #dee2e6 !important;
+    border-radius: 0 !important;
+}
+.admin li button.active{
+    background: #1e2536;
+    color: white;
+    border-color: #1e2536 !important;
+}
+.admin .rightBtn{
+    text-align: right;
+}
+.admin .rightBtn a{
+    font-size: 14px;
+    text-decoration: none;
+    padding: 7px 15px;
+    display: inline-block;
+    background: white;
+    color: #1e2536 !important;
+    font-weight: bold;
+    border-radius: 3px;
+    margin: 0 0 0 10px;
+}
+.form .label{
+    font-size: 15px;
+    font-weight: bold;
+    padding: 10px 0;
+}
+.form p{
+    font-size: 14px;
+    margin: 0;
+    padding: 10px 0;
+}
+.form .field{
+    border-radius: 0;
+    font-size: 14px;
+    padding: 10px 15px;
+    height: auto;
+    box-shadow: none;
+    border: 1px solid #dee2e6;
+    margin-bottom: 15px;
+}
+.headTitle{
+    background: #1e2536;
+    padding: 20px 0;
+    margin: 0 0 30px;
+}
+.form .btn{
+    background: #1e2536;
+    color: white;
+}
+
+
+.expenseView{
+    border: 1px solid #ddd;
+    padding: 30px;
+}
+.expenseView li{
+    display: block;
+    line-height: 35px;
+    font-size: 14px;
+}
+.expenseView b{
+    min-width: 130px;
+    display: inline-block;
+}
+
+
+form li.editCol {
+    border: 0;
+    width: 100%;
+    margin: 0;
+    padding: 10px 0;
+    background: white !important;
+}
+form li.editCol input {
+    width: auto;
+    margin: -15px 0 0 !important;
+    float: right;
+}
+form li.editCol span {
+    float: right;
+    margin: -15px 0 0;
+    padding: 11px;
+}
+/*end expense*/
