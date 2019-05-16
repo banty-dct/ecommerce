@@ -20,19 +20,18 @@ class Add extends React.Component{
 
     handleSubmit = (formData) => {
         this.setState(() => ({ submitLoading: true }))
-        axios.post(`/api/admin/products`, formData, {
+        axios.post('/api/admin/products', formData, {
                 headers: { 'x-auth': this.props.user.auth.token }
             })
             .then(res => {
-                console.log(res.data)
-                // if(res.data.errors){
-                //     this.setState(() => ({
-                //         errors: res.data.errors,
-                //         submitLoading: false
-                //     }))
-                // }else{
-                //     this.state.roles.includes('admin') ? this.props.history.push('/admin/expenses') : this.props.history.push('/expenses')
-                // }
+                if(res.data.errors){
+                    this.setState(() => ({
+                        errors: res.data.errors,
+                        submitLoading: false
+                    }))
+                }else{
+                    this.props.history.push('/admin/products')
+                }
             })
             .catch(err => {
                 console.log(err)

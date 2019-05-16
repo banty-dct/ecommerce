@@ -12,21 +12,32 @@ const productSchema = new Schema({
         min: 1,
         required: [true, "price is required"]
     }, 
-    description: String, 
+    description: {
+        type: String,
+        required: [true, "description is required"]
+    }, 
     category: {
         type: Schema.Types.ObjectId,
         ref: 'Category'
     },
-    availabeDateTime: Date,
+    availabeDateTime: {
+        type: Date,
+        required: [true, "available date is required"]
+    },
     codEligible: {
         type: Boolean,
-        default: true 
+        default: true
     },
     stock:{
         type: Number,
-        min: 0
+        min: 0,
+        required: [true, "stock is required"]
     },
-    image: String
+    image: String,
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
 })
 
 productSchema.plugin(uniqueValidator, { message: '{PATH} already exists' })
