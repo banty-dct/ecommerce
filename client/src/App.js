@@ -12,6 +12,7 @@ import Register from './components/auth/Register'
 import AdminProductViewAll from "./components/admin/products/ViewAll"
 import AdminProductViewOne from "./components/admin/products/ViewOne"
 import AdminProductAdd from "./components/admin/products/Add"
+import AdminProductEdit from "./components/admin/products/Edit"
 
 import AdminCategoryViewAll from "./components/admin/categories/ViewAll"
 import AdminCategoryAdd from "./components/admin/categories/Add"
@@ -37,6 +38,7 @@ const App = (props) => {
               <Route path="/admin/products" component={AdminProductViewAll} exact={true} />
               <Route path="/admin/products/add" component={AdminProductAdd} exact={true} />
               <Route path="/admin/products/view/:id" component={AdminProductViewOne} exact={true} />
+              <Route path="/admin/products/edit/:id" component={AdminProductEdit} exact={true} />
 
               <Route path="/admin/categories" component={AdminCategoryViewAll} exact={true} />
               <Route path="/admin/categories/add" component={AdminCategoryAdd} exact={true} />

@@ -9,14 +9,15 @@ class Form extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            name: '',
-            category: null,
-            price: '',
-            description: '',
+            name: props.product ? props.product.name : '',
+            category: props.product ? {value: props.product.category._id, label: props.product.category.name} : null,
+            price: props.product ? props.product.price : '',
+            description: props.product ? props.product.description : '',
             availabeDateTime: new Date(),
-            codEligible: null,
-            stock: '',
-            image: '',
+            codEligible: props.product ? {value: props.product.codEligible, label: props.product.codEligible ? 'Yes' : 'No'} : null,
+            stock: props.product ? props.product.stock : '',
+            image: props.product ? props.product.image : '',
+            prevImg: props.product ? props.product.image : '',
 
             isLoaded: false,
             categories: []
@@ -194,6 +195,7 @@ class Form extends React.Component{
                                        name="image" 
                                        onChange={this.handleFileChange}
                                     />
+                                { this.state.prevImg && <img className="fullImg" src={`http://localhost:3005/uploads/${this.state.prevImg}`} alt="" /> }
                             </div>
                             <div className="col-md-5">
                                 { this.props.errors.image && <p className="text-danger">{ this.props.errors.image.message }</p> }

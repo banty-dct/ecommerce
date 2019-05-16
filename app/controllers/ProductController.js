@@ -18,7 +18,7 @@ router.get("/",function(req,res){
 //localhost:3005/api/products/:id
 router.get("/:id",function(req,res){
     const id = req.params.id
-    Product.findOne({ _id: id })
+    Product.findOne({ _id: id }).populate("category")
         .then(function(product){
             res.send({product})
         })
