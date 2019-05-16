@@ -296,20 +296,24 @@ form li.editCol span {
     padding: 30px 0;
 }
 .productItem{
-    box-shadow: 0 0 20px -5px #cacaca;
     border-radius: 10px;
     overflow: hidden;
+    margin-bottom: 30px;
+    border: 1px solid #f4f4f4;
 }
 .productItem .img{
-
+    width: 100%;
+    height: 230px;
+    padding: 20px 30px 0;
 }
 .productItem img{
     width: 100%;
-    height: 230px;
+    height: 100%;
     object-fit: contain;
 }
 .productItem .details{
     padding: 30px;
+    background: white;
 }
 .productItem h2{
     font-size: 15px;
@@ -319,7 +323,7 @@ form li.editCol span {
     font-weight: 500;
 }
 .productItem button.add{
-    font-size: 14px;
+    font-size: 13px;
     background: #363349;
     color: white;
     box-shadow: none;

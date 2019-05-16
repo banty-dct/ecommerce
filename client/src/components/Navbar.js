@@ -23,12 +23,12 @@ const Navbar = (props) => {
                                 </li>
                                 { props.user.auth.role === "customer" ?
                                     <React.Fragment>                                        
-                                        <li className="nav-item">
+                                        {/* <li className="nav-item">
                                             <Link to="/cart" className="nav-link">Cart</Link>
                                         </li>
                                         <li className="nav-item">
                                             <Link to="/wishlists" className="nav-link">Wishlists</Link>
-                                        </li>
+                                        </li> */}
                                         <li className="nav-item">
                                             <Link to="/orders" className="nav-link">Orders</Link>
                                         </li>
@@ -44,9 +44,9 @@ const Navbar = (props) => {
                                         <li className="nav-item">
                                             <Link to="/admin/categories" className="nav-link">Categories</Link>
                                         </li>
-                                        <li className="nav-item">
+                                        {/* <li className="nav-item">
                                             <Link to="/admin/users" className="nav-link">Users</Link>
-                                        </li>
+                                        </li> */}
                                         <li className="nav-item">
                                             <Link to="/admin/orders" className="nav-link">Orders</Link>
                                         </li>

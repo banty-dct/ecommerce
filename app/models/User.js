@@ -181,7 +181,7 @@ userSchema.methods.generateToken = function() {
     })
     return user.save()
         .then(function(user){
-            return Promise.resolve({role: user.role, token, id: user._id})
+            return Promise.resolve({role: user.role, token, id: user._id, fullname: user.fullname, email: user.email})
         })
         .catch(function(err){
             return Promise.reject(err)
