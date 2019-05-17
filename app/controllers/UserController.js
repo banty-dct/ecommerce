@@ -52,7 +52,7 @@ router.get("/token/:id",function(req,res){
     const token = req.params.id
     User.findOne({"tokens.token": token})
         .then(function(user){
-            res.send({id: user._id, role: user.role, token})
+            res.send({role: user.role, token, id: user._id, fullname: user.fullname, email: user.email})
         })
         .catch(function(err){
             res.send(err)
