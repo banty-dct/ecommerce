@@ -1,11 +1,11 @@
 import React from 'react'
-//import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import axios from "axios"
 
-import { Spinner } from "../commons/Spinner"
+import { Spinner } from "../../commons/Spinner"
 
-class Orders extends React.Component {
+class AdminOrderViewAll extends React.Component {
     constructor(props){
         super(props)
         this.state = {
@@ -15,12 +15,11 @@ class Orders extends React.Component {
     }
 
     componentDidMount(){        
-        document.title = "Orders"
-        axios.get("/api/orders",{
+        document.title = "All Orders"
+        axios.get("/api/admin/orders",{
                 headers: { "x-auth": this.props.user.auth.token }
             })
             .then(res => {
-                console.log(res.data)
                 this.setState(() => ({
                     orders: res.data,
                     isLoaded: true
@@ -31,8 +30,8 @@ class Orders extends React.Component {
     render(){
         return (
             <div className="orders admin">
-                <div className="container"> 
-                    <h1>My Orders</h1>                   
+                <div className="container">     
+                    <h1>All Orders</h1>               
                     { this.state.isLoaded ? 
                         <table className="table table-hover table-bordered">
                             <thead>
@@ -44,7 +43,7 @@ class Orders extends React.Component {
                                     <th>Order Id</th>
                                     <th>Order Date</th>
                                     <th>Status</th>
-                                    {/* <th>Action</th> */}
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -58,7 +57,7 @@ class Orders extends React.Component {
                                             <td>{ order.orderId }</td>
                                             <td>{ order.createdAt }</td>
                                             <td>{ order.paymentStatus ? 'Paid' : 'Failed' }</td>
-                                            {/* <td>{ order.payment.id && <Link className="btn" to={`/orders/${order.orderId}`}>View</Link> }</td> */}
+                                            <td>{ <Link className="btn" to={`/admin/orders/${order.orderId}`}>View</Link> }</td>
                                         </tr>
                                     )
                                 }) }
@@ -77,4 +76,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Orders)
+export default connect(mapStateToProps)(AdminOrderViewAll)

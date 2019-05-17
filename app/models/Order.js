@@ -18,8 +18,12 @@ const orderSchema = new Schema({
     },
     amount: Number,
     paymentStatus: {
-        type: String,
-        default: "Payment Pending"
+        type: Boolean,
+        default: false
+    },
+    refundStatus: {
+        type: Boolean,
+        default: false
     },
     payment: {
         amount: Number,
@@ -47,6 +51,18 @@ const orderSchema = new Schema({
         vpa: String,
         wallet: String,
         notes: Array
+    },
+    refund: {
+        acquirer_data: {
+            rrn: String
+        },
+        amount: Number,
+        created_at: Date,
+        currency: String,
+        entity: String,
+        id: String,
+        payment_id: String,
+        receipt: String
     }
 })
 

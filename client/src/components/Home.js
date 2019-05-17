@@ -60,11 +60,11 @@ class Home extends React.Component {
                         headers: { "x-auth": self.props.user.auth.token }
                     })
                     .then(res => {
-                        self.saveOrder({
+                        self.updateOrder({
                             product: data.id,
                             payment: res.data,
                             orderId: data.orderId,
-                            paymentStatus: "Paid"
+                            paymentStatus: true
                         })
                     })
                     .catch(err => {
@@ -83,8 +83,8 @@ class Home extends React.Component {
         rzp1.open()
     }
 
-    saveOrder = (data) => {
-        axios.put("/api/orders", data,{
+    updateOrder = (data) => {
+        axios.put(`/api/orders/${data.orderId}`,data,{
                 headers: { "x-auth": this.props.user.auth.token }
             })
             .then(res => {
