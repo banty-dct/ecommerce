@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import Navbar from './components/Navbar'
 import Home from './components/Home'
+import Orders from './components/customer/Orders'
 
 import Login from './components/auth/Login'
 import Logout from './components/auth/Logout'
@@ -30,6 +31,7 @@ const App = (props) => {
             <Switch>
 
               <Route path="/" component={Home} exact={true} />
+              <Route path="/orders" component={Orders} exact={true} />
 
               <Route path="/login" component={Login} exact={true} />
               <Route path="/logout" component={Logout} exact={true} />
