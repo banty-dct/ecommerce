@@ -175,6 +175,9 @@ button.navbar-toggler span{
 .admin table th:first-child{
     width: 80px;
 }
+.admin table img{
+    height: 50px;
+}
 .admin input.search{
     max-width: 350px;
     display: block;
@@ -251,20 +254,6 @@ button.navbar-toggler span{
     margin: 10px 0;
 }
 
-.expenseView{
-    border: 1px solid #ddd;
-    padding: 30px;
-}
-.expenseView li{
-    display: block;
-    line-height: 35px;
-    font-size: 14px;
-}
-.expenseView b{
-    min-width: 130px;
-    display: inline-block;
-}
-
 
 form li.editCol {
     border: 0;
@@ -282,6 +271,10 @@ form li.editCol span {
     float: right;
     margin: -15px 0 0;
     padding: 11px;
+}
+.orders table a, .orders table button{
+    background: #1e2536;
+    color: white !important;
 }
 /*end admin*/
 
@@ -331,7 +324,16 @@ form li.editCol span {
 }
 /*end product*/
 
-/*React Select*/
+/*start orders*/
+.orders{
+
+}
+.orders h1{
+
+}
+/*end orders*/
+
+/*start React Select*/
 .css-1pcexqc-container{
     margin-bottom: 10px;
     font-size: 14px !important;
@@ -349,8 +351,9 @@ form li.editCol span {
 .css-1hwfws3{
     padding: 0 15px !important;
 }
+/*end React Select*/
 
-/*React Date Picker*/
+/*start React Date Picker*/
 .react-datepicker-wrapper{
     width: 100%;
 }
@@ -368,10 +371,12 @@ form li.editCol span {
     margin-bottom: 15px;
     outline: 0 !important;
 }
+/*end React Date Picker*/
 
-/*React Image Upload*/
+/*start React Image Upload*/
 .fileContainer .chooseFileButton {
     padding: 8px 20px !important;
     border-radius: 3px !important;
     font-weight: 400 !important;
 }
+/*end React Image Upload*/

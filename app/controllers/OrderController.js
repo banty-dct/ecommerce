@@ -1,6 +1,7 @@
 const express = require("express")
 const _ = require("lodash")
 const router = express.Router()
+const uuid = require("uuid")
 
 const { User } = require('../models/User')
 const { Order } = require('../models/Order')
@@ -9,12 +10,30 @@ const { userAuth } = require("../middlewares/auth")
 
 //localhost:3005/api/orders
 router.post("/",userAuth,function(req,res){
-    const body = _.pick(req.body,["product","payment"])
+    const body = _.pick(req.body,["product","amount"])
     body.user = req.user._id
+    body.orderId = uuid()
     const order = new Order(body) 
     order.save()
         .then(function(order){
-            res.send(order)     
+            res.send(order)
+        })
+        .catch(function(err){
+            res.send(err)
+        })
+})
+
+//localhost:3005/api/orders
+router.put("/",userAuth,function(req,res){
+    const body = _.pick(req.body,["product","payment","orderId","paymentStatus"])
+    body.user = req.user._id
+    Order.findOneAndUpdate({
+            orderId: body.orderId, 
+            product: body.product,
+            user: body.user
+        },body,{new: true, runValidators: true})
+        .then(function(order){
+            res.send(order)
         })
         .catch(function(err){
             res.send(err)
@@ -48,7 +67,7 @@ router.post("/",userAuth,function(req,res){
 //localhost:3000/orders
 router.get("/",userAuth,function(req,res){
     const user = req.user._id
-    Order.find({user})
+    Order.find({user}).populate("product").sort({ createdAt: -1 })
         .then(function(orders){
             res.send(orders)
         })

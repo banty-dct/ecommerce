@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
 const orderSchema = new Schema({
+    orderId: String,
     createdAt: {
         type: Date,
         default: Date.now
@@ -15,7 +16,11 @@ const orderSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Product'
     },
-    status: String,
+    amount: Number,
+    paymentStatus: {
+        type: String,
+        default: "Payment Pending"
+    },
     payment: {
         amount: Number,
         amount_refunded: Number,

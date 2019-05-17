@@ -27,51 +27,69 @@ class Home extends React.Component {
     }
 
     buyProduct = (product) => {
+        const self = this
         if(this.props.user.auth === "false"){
             window.alert("Login to buy")
         }else{
-            const self = this
-            const options = {
-                key: Razorpay_Api.key_id,
-                amount: product.price * 100,
-                name: 'Ecommerce',
-                description: product.name,
-    
-                handler(response) {
-                    const paymentId = response.razorpay_payment_id
-                    axios.get(`/api/payment/razorpay/capture/${paymentId}/${product.price}`, {
-                            headers: { "x-auth": self.props.user.auth.token }
-                        })
-                        .then(res => {
-                            self.saveOrder({
-                                product,
-                                payment: res.data
-                            })
-                        })
-                        .catch(err => {
-                            console.log(err)
-                        })
-                },    
-                prefill: {
-                    name: self.props.user.auth.fullname,
-                    email: self.props.user.auth.email,
-                },
-                theme: {
-                    color: '#363349',
-                }
-            }
-            const rzp1 = new window.Razorpay(options)    
-            rzp1.open()
+            axios.post("/api/orders",{ product: product._id, amount: product.price },{
+                    headers: { 'x-auth': this.props.user.auth.token }
+                })
+                .then(res => {
+                    console.log(res.data)
+                    self.razorPaymentScreen({
+                        id: product._id,
+                        name: product.name,
+                        amount: product.price,
+                        orderId: res.data.orderId
+                    })
+                })
         }
     }
 
-    saveOrder = (formData) => {
-        axios.post("/api/orders", formData,{
+    razorPaymentScreen = (data) => {
+        const self = this
+        const options = {
+            key: Razorpay_Api.key_id,
+            amount: data.amount * 100,
+            name: "Ecommerce",
+            description: data.name,
+
+            handler(response) {
+                const payment_id = response.razorpay_payment_id
+                axios.get(`/api/payment/razorpay/payment_capture/${payment_id}/${data.amount}`,{
+                        headers: { "x-auth": self.props.user.auth.token }
+                    })
+                    .then(res => {
+                        self.saveOrder({
+                            product: data.id,
+                            payment: res.data,
+                            orderId: data.orderId,
+                            paymentStatus: "Paid"
+                        })
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            },    
+            prefill: {
+                name: self.props.user.auth.fullname,
+                email: self.props.user.auth.email,
+            },
+            theme: {
+                color: '#363349',
+            }
+        }
+        const rzp1 = new window.Razorpay(options)    
+        rzp1.open()
+    }
+
+    saveOrder = (data) => {
+        axios.put("/api/orders", data,{
                 headers: { "x-auth": this.props.user.auth.token }
             })
             .then(res => {
                 if(res.data.payment){
-                    window.alert("Successfully Paid")
+                    window.alert("Successfully Purchased")
                 }
             })
             .catch(err => {
