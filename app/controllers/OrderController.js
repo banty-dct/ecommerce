@@ -23,12 +23,13 @@ router.post("/",userAuth,function(req,res){
         })
 })
 
-//localhost:3005/api/orders
-router.put("/",userAuth,function(req,res){
-    const body = _.pick(req.body,["product","payment","orderId","paymentStatus"])
+//localhost:3005/api/orders/:id
+router.put("/:id",userAuth,function(req,res){
+    const id = req.params.id
+    const body = _.pick(req.body,["product","payment","paymentStatus"])
     body.user = req.user._id
     Order.findOneAndUpdate({
-            orderId: body.orderId, 
+            orderId: id, 
             product: body.product,
             user: body.user
         },body,{new: true, runValidators: true})
@@ -68,6 +69,19 @@ router.put("/",userAuth,function(req,res){
 router.get("/",userAuth,function(req,res){
     const user = req.user._id
     Order.find({user}).populate("product").sort({ createdAt: -1 })
+        .then(function(orders){
+            res.send(orders)
+        })
+        .catch(function(err){
+            res.send(err)
+        })
+})
+
+//localhost:3000/orders/:id
+router.get("/:id",userAuth,function(req,res){
+    const id = req.params.id
+    const user = req.user._id
+    Order.findOne({user, orderId: id}).populate("product")
         .then(function(orders){
             res.send(orders)
         })

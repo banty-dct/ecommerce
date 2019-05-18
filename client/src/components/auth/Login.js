@@ -51,7 +51,7 @@ class Login extends React.Component {
                 } else {
                     this.props.dispatch(saveUser(response.data))
                     localStorage.setItem('token', JSON.stringify(response.data.token))
-                    response.data.role === "admin" || response.data.role === "moderator" ? this.props.history.push("/admin/") : this.props.history.push("/")
+                    response.data.role === "admin" || response.data.role === "moderator" ? this.props.history.push("/admin/products/") : this.props.history.push("/")
                 }
             })
     }

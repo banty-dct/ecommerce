@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
 import Orders from './components/customer/Orders'
+import OrderView from './components/customer/OrderView'
 
 import Login from './components/auth/Login'
 import Logout from './components/auth/Logout'
@@ -19,6 +20,9 @@ import AdminCategoryViewAll from "./components/admin/categories/ViewAll"
 import AdminCategoryAdd from "./components/admin/categories/Add"
 import AdminCategoryEdit from "./components/admin/categories/Edit"
 
+import AdminOrderViewAll from "./components/admin/orders/ViewAll"
+import AdminOrderViewOne from "./components/admin/orders/ViewOne"
+
 import { Spinner } from "./components/commons/Spinner"
 
 const App = (props) => {
@@ -32,6 +36,7 @@ const App = (props) => {
 
               <Route path="/" component={Home} exact={true} />
               <Route path="/orders" component={Orders} exact={true} />
+              <Route path="/orders/:id" component={OrderView} exact={true} />
 
               <Route path="/login" component={Login} exact={true} />
               <Route path="/logout" component={Logout} exact={true} />
@@ -45,6 +50,9 @@ const App = (props) => {
               <Route path="/admin/categories" component={AdminCategoryViewAll} exact={true} />
               <Route path="/admin/categories/add" component={AdminCategoryAdd} exact={true} />
               <Route path="/admin/categories/edit/:id" component={AdminCategoryEdit} exact={true} />
+
+              <Route path="/admin/orders" component={AdminOrderViewAll} exact={true} />
+              <Route path="/admin/orders/:id" component={AdminOrderViewOne} exact={true} />
 
             </Switch>
           </div>
