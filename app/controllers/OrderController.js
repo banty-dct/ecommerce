@@ -3,7 +3,7 @@ const _ = require("lodash")
 const router = express.Router()
 const uuid = require("uuid")
 
-const { User } = require('../models/User')
+//const { User } = require('../models/User')
 const { Order } = require('../models/Order')
 
 const { userAuth } = require("../middlewares/auth")
@@ -26,7 +26,7 @@ router.post("/",userAuth,function(req,res){
 //localhost:3005/api/orders/:id
 router.put("/:id",userAuth,function(req,res){
     const id = req.params.id
-    const body = _.pick(req.body,["product","payment","paymentStatus"])
+    const body = _.pick(req.body,["product","razorpay"])
     body.user = req.user._id
     Order.findOneAndUpdate({
             orderId: id, 

@@ -33,8 +33,8 @@ router.get("/:id",userAuth,modAccess,function(req,res){
 //localhost:3005/api/admin/orders/:id
 router.put("/:id",userAuth,modAccess,function(req,res){
     const id = req.params.id
-    const body = _.pick(req.body,["refundStatus","refund"])
-    Order.findOneAndUpdate({orderId: id},body,{new: true, runValidators: true})
+    const body = _.pick(req.body,["razorpay"])
+    Order.findOneAndUpdate({orderId: id},body,{new: true, runValidators: true}).populate("product")
         .then(function(order){
             res.send(order)
         })

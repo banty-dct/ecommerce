@@ -62,9 +62,14 @@ class Home extends React.Component {
                     .then(res => {
                         self.updateOrder({
                             product: data.id,
-                            payment: res.data,
                             orderId: data.orderId,
-                            paymentStatus: true
+                            razorpay: {
+                                payment: {
+                                    id: res.data.id,
+                                    status: true
+                                },
+                                status: "Paid Successfully"
+                            }
                         })
                     })
                     .catch(err => {
@@ -88,7 +93,7 @@ class Home extends React.Component {
                 headers: { "x-auth": this.props.user.auth.token }
             })
             .then(res => {
-                if(res.data.payment){
+                if(res.data.razorpay.payment.status){
                     window.alert("Successfully Purchased")
                 }
             })

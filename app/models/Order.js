@@ -17,52 +17,25 @@ const orderSchema = new Schema({
         ref: 'Product'
     },
     amount: Number,
-    paymentStatus: {
-        type: Boolean,
-        default: false
-    },
-    refundStatus: {
-        type: Boolean,
-        default: false
-    },
-    payment: {
-        amount: Number,
-        amount_refunded: Number,
-        bank: String,
-        captured: Boolean,
-        card_id: String,
-        contact: String,
-        created_at: Date,
-        currency: String,
-        description: String,
-        email: String,
-        entity: String,
-        error_code: String,
-        error_description: String,
-        fee: Number,
-        id: String,
-        international: Boolean,
-        invoice_id: String,
-        method: String,
-        order_id: String,
-        refund_status: String,
-        status: String,
-        tax: Number,
-        vpa: String,
-        wallet: String,
-        notes: Array
-    },
-    refund: {
-        acquirer_data: {
-            rrn: String
+    razorpay: {
+        payment: {
+            id: String,
+            status: {
+                type: Boolean,
+                default: false
+            }
         },
-        amount: Number,
-        created_at: Date,
-        currency: String,
-        entity: String,
-        id: String,
-        payment_id: String,
-        receipt: String
+        refund: {
+            id: String,
+            status: {
+                type: Boolean,
+                default: false
+            }
+        },
+        status: {
+            type: String,
+            default: "Payment Failed"
+        }
     }
 })
 

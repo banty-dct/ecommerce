@@ -56,7 +56,7 @@ class AdminOrderViewAll extends React.Component {
                                             <td>{ order.amount }</td>
                                             <td>{ order.orderId }</td>
                                             <td>{ order.createdAt }</td>
-                                            <td>{ order.paymentStatus ? 'Paid' : 'Failed' }</td>
+                                            <td>{ order.razorpay.status }</td>
                                             <td>{ <Link className="btn" to={`/admin/orders/${order.orderId}`}>View</Link> }</td>
                                         </tr>
                                     )
